@@ -9,7 +9,6 @@ from homeassistant.const import (
     ATTR_VIA_DEVICE,
     CONF_HOST,
 )
-from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -68,12 +67,5 @@ class PlugwiseEntity(CoordinatorEntity[PlugwiseData]):
 
     async def async_added_to_hass(self) -> None:
         """Subscribe to updates."""
-        self._async_process_data()
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self._async_process_data)
-        )
-
-    @callback
-    def _async_process_data(self) -> None:
-        """Interpret and process API data."""
-        raise NotImplementedError
+        self._handle_coordinator_update()
+        await super().async_added_to_hass()
