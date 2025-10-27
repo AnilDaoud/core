@@ -120,7 +120,7 @@ async def async_setup_entry(
     device = hass.data[DOMAIN].devices[config_entry.entry_id]
     switches: list[BroadlinkSwitch] = []
 
-    if device.api.type in {"RM4MINI", "RM4PRO", "RMMINI", "RMMINIB", "RMPRO"}:
+    if device.api.type in {"RM4MINI", "RM4PRO", "RM5PLUS", "RMMINI", "RMMINIB", "RMPRO"}:
         platform_data = hass.data[DOMAIN].platforms.setdefault(Platform.SWITCH, {})
         platform_data[device.api.mac] = async_add_entities, device
     elif device.api.type == "SP1":
